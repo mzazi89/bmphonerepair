@@ -168,80 +168,119 @@ module.exports = async (mzazi, m) => {
           };
 
           const { chatId, senderJid, senderNum: _sNum, msgObj, caption } = cached;
-
-          const notice =
-            `🗑️ *Anti-Delete*\n` +
-            `👤 *From:* @${_sNum}\n` +
-            (isGroup2 ? `👥 *Chat:* ${sender}\n` : `💬 *Chat:* DM\n`) +
-            `📝 *Content:* ${caption || "(media)"}\n` +
-            `⏰ ${new Date().toLocaleString()}`;
-
           const _mt = msgObj ? Object.keys(msgObj)[0] : null;
 
-          // Helper: resend deleted message to a destination JID
-          const resendTo = async (destJid) => {
+          // Determine a human-readable media type label
+          const _mediaLabel = _mt === "imageMessage" ? "🖼️ Image"
+            : _mt === "videoMessage" ? "🎥 Video"
+            : _mt === "audioMessage" ? (msgObj.audioMessage?.ptt ? "🎤 Voice Note" : "🎵 Audio")
+            : _mt === "stickerMessage" ? "🩹 Sticker"
+            : _mt === "documentMessage" ? "📄 Document"
+            : _mt === "conversation" || _mt === "extendedTextMessage" ? `💬 Text: ${caption}`
+            : "📎 Media";
+
+          const notice =
+            `🗑️ *Anti-Delete Alert*\n` +
+            `━━━━━━━━━━━━━━━━━━━━\n` +
+            `👤 *From:* @${_sNum}\n` +
+            (isGroup2 ? `👥 *Group:* ${chatId}\n` : `💬 *Chat:* DM\n`) +
+            `📌 *Type:* ${_mediaLabel}\n` +
+            (caption && _mt !== "conversation" && _mt !== "extendedTextMessage" ? `📝 *Caption:* ${caption}\n` : "") +
+            `⏰ *Time:* ${new Date().toLocaleString()}\n` +
+            `━━━━━━━━━━━━━━━━━━━━`;
+
+          // Helper: forward deleted media + notice to a destination DM JID
+          const forwardToDM = async (destJid) => {
             try {
+              const _fakeKey = { remoteJid: chatId, fromMe: false, id: revokedKey.id, participant: senderJid };
               if (_mt === "imageMessage") {
                 try {
                   const _buf = await downloadMediaMessage(
-                    { key: { remoteJid: chatId, fromMe: false, id: revokedKey.id, participant: senderJid }, message: msgObj },
-                    "buffer", {}, { logger: pino({ level: "silent" }), reuploadRequest: mzazi.updateMediaMessage }
+                    { key: _fakeKey, message: msgObj }, "buffer", {},
+                    { logger: pino({ level: "silent" }), reuploadRequest: mzazi.updateMediaMessage }
                   );
-                  await mzazi.sendMessage(destJid, { image: _buf, caption: notice, contextInfo: _ctx, mentions: [senderJid] });
-                } catch { await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx, mentions: [senderJid] }); }
+                  await mzazi.sendMessage(destJid, { image: _buf, caption: notice, contextInfo: _ctx });
+                } catch { await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx }); }
+
               } else if (_mt === "videoMessage") {
                 try {
                   const _buf = await downloadMediaMessage(
-                    { key: { remoteJid: chatId, fromMe: false, id: revokedKey.id, participant: senderJid }, message: msgObj },
-                    "buffer", {}, { logger: pino({ level: "silent" }), reuploadRequest: mzazi.updateMediaMessage }
+                    { key: _fakeKey, message: msgObj }, "buffer", {},
+                    { logger: pino({ level: "silent" }), reuploadRequest: mzazi.updateMediaMessage }
                   );
-                  await mzazi.sendMessage(destJid, { video: _buf, caption: notice, contextInfo: _ctx, mentions: [senderJid] });
-                } catch { await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx, mentions: [senderJid] }); }
+                  await mzazi.sendMessage(destJid, { video: _buf, caption: notice, contextInfo: _ctx });
+                } catch { await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx }); }
+
               } else if (_mt === "audioMessage") {
                 try {
                   const _buf = await downloadMediaMessage(
-                    { key: { remoteJid: chatId, fromMe: false, id: revokedKey.id, participant: senderJid }, message: msgObj },
-                    "buffer", {}, { logger: pino({ level: "silent" }), reuploadRequest: mzazi.updateMediaMessage }
+                    { key: _fakeKey, message: msgObj }, "buffer", {},
+                    { logger: pino({ level: "silent" }), reuploadRequest: mzazi.updateMediaMessage }
                   );
                   await mzazi.sendMessage(destJid, { audio: _buf, mimetype: "audio/mp4", ptt: !!msgObj.audioMessage?.ptt, contextInfo: _ctx });
-                  await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx, mentions: [senderJid] });
-                } catch { await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx, mentions: [senderJid] }); }
+                  await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx });
+                } catch { await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx }); }
+
+              } else if (_mt === "stickerMessage") {
+                try {
+                  const _buf = await downloadMediaMessage(
+                    { key: _fakeKey, message: msgObj }, "buffer", {},
+                    { logger: pino({ level: "silent" }), reuploadRequest: mzazi.updateMediaMessage }
+                  );
+                  await mzazi.sendMessage(destJid, { sticker: _buf, contextInfo: _ctx });
+                  await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx });
+                } catch { await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx }); }
+
+              } else if (_mt === "documentMessage") {
+                try {
+                  const _buf = await downloadMediaMessage(
+                    { key: _fakeKey, message: msgObj }, "buffer", {},
+                    { logger: pino({ level: "silent" }), reuploadRequest: mzazi.updateMediaMessage }
+                  );
+                  await mzazi.sendMessage(destJid, {
+                    document: _buf,
+                    mimetype: msgObj.documentMessage?.mimetype || "application/octet-stream",
+                    fileName: msgObj.documentMessage?.fileName || "deleted_file",
+                    caption: notice,
+                    contextInfo: _ctx
+                  });
+                } catch { await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx }); }
+
               } else {
-                await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx, mentions: [senderJid] });
+                // text or other
+                await mzazi.sendMessage(destJid, { text: notice, contextInfo: _ctx });
               }
-            } catch (e) { console.error("AntiDelete resendTo error:", e?.message); }
+            } catch (e) { console.error("AntiDelete forwardToDM error:", e?.message); }
           };
 
           for (const _num of _dirs) {
+            // Resolve owner DM: prefer owners.json[0], fallback to bot number itself
             const _ownersList = loadJSON(`${_sessDir}/${_num}/owners.json`, []);
-            const _ownerDmJid = _ownersList[0] ? `${String(_ownersList[0]).replace(/\D/g, "")}@s.whatsapp.net` : null;
-            const _botDmJid = `${_num}@s.whatsapp.net`;
+            const _ownerDmJid = _ownersList[0]
+              ? `${String(_ownersList[0]).replace(/\D/g, "")}@s.whatsapp.net`
+              : `${_num}@s.whatsapp.net`;
 
             if (isGroup2) {
-              // ── GROUP: check groups.json for antidelete setting
+              // ── GROUP deletion: check groups.json for antidelete setting
               const _gFile = `${_sessDir}/${_num}/groups.json`;
               if (!fs.existsSync(_gFile)) continue;
               let _groups;
               try { _groups = JSON.parse(fs.readFileSync(_gFile, "utf8") || "{}"); } catch { continue; }
               const _gs = _groups[sender] || {};
               if (!_gs.antidelete) continue;
-              // Resend in the group chat
-              await resendTo(chatId);
-              // Also forward the notice to owner DM
-              const _ownerDest = _ownerDmJid || _botDmJid;
-              if (_ownerDest && _ownerDest !== chatId) {
-                await mzazi.sendMessage(_ownerDest, { text: `🔔 *[Anti-Delete • Group]*\n${notice}`, contextInfo: _ctx }).catch(() => {});
-              }
+              // Send ONLY to owner's DM — do NOT resend in the group
+              await forwardToDM(_ownerDmJid);
+
             } else {
-              // ── DM: check dm_settings.json for antidelete setting
+              // ── DM deletion: check dm_settings.json for antidelete setting
               const _dmFile = `${_sessDir}/${_num}/dm_settings.json`;
               if (!fs.existsSync(_dmFile)) continue;
               let _dmSettings;
               try { _dmSettings = JSON.parse(fs.readFileSync(_dmFile, "utf8") || "{}"); } catch { continue; }
               const _dmEntry = _dmSettings[sender] || _dmSettings["__global__"] || {};
               if (!_dmEntry.antidelete) continue;
-              // Resend deleted DM message back in the DM
-              await resendTo(chatId);
+              // Send ONLY to owner's DM — do NOT resend in the original DM
+              await forwardToDM(_ownerDmJid);
             }
             break;
           }
@@ -322,7 +361,8 @@ const customPrefix = sessionSettings.customPrefix;
       prefix = config.prefix?.test?.(budy) ? budy.match(config.prefix)[0] : ".";
     }
 
-    const isCmd = budy.startsWith(prefix);
+    // Robust isCmd — always test against the resolved prefix, never assume
+    const isCmd = budy.length > 0 && prefix.length > 0 && budy.startsWith(prefix);
     const command = isCmd ? budy.slice(prefix.length).trim().split(/ +/).shift().toLowerCase() : "";
     const args = isCmd ? budy.slice(prefix.length).trim().split(/ +/).slice(1) : [];
     const text = args.join(" ");
@@ -3348,8 +3388,8 @@ ${adminList}
         }
         mzazireply(
           _adEnable
-            ? `🗑️ *Anti-Delete ON*\nDeleted messages will be resent automatically${isGroup ? " in this group and forwarded to owner DM" : " in this DM"}.`
-            : `🗑️ *Anti-Delete OFF*\nDeleted messages will no longer be resent.`
+            ? `🗑️ *Anti-Delete ON*\n${isGroup ? "Deleted group messages will be secretly forwarded to owner's DM." : "Deleted DM messages will be secretly forwarded to owner's DM."}\nNothing is resent publicly.`
+            : `🗑️ *Anti-Delete OFF*\nAnti-delete monitoring disabled.`
         );
         break;
       }
