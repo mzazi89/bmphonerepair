@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "y4PdIaUai6E4vrVyPY4ju"
+uri = "file://case_updated.zip"
+type = "unspecified"
+title = "case.js (updated)"
