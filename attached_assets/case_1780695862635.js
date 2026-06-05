@@ -348,23 +348,41 @@ module.exports = async (mzazi, m) => {
     const settingsPath = `./database/sessions/${botPhoneNum}/settings.json`;
     // prefix handling
     const sessionSettings = loadJSON(`./database/sessions/${botPhoneNum}/settings.json`, {});
-const customPrefix = sessionSettings.customPrefix;
+    const customPrefix = sessionSettings.customPrefix; // undefined = never set, "" = none mode, "x" = custom
+    const noPrefixMode = customPrefix === "";           // explicitly set to none via .setprefix none
+
     let prefix = ".";
-    if (customPrefix) {
+    let isCmd = false;
+    let command = "";
+    let args = [];
+
+    if (noPrefixMode) {
+      // No-prefix mode: every non-empty message is a potential command
+      prefix = "";
+      isCmd = budy.trim().length > 0;
+      command = isCmd ? budy.trim().split(/ +/).shift().toLowerCase() : "";
+      args = isCmd ? budy.trim().split(/ +/).slice(1) : [];
+    } else if (customPrefix) {
+      // Custom prefix set: use it, fall back to config prefix if message doesn't match
       const escaped = customPrefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      prefix = new RegExp(`^${escaped}`).test(budy)
-        ? customPrefix
-        : config.prefix?.test?.(budy)
-          ? budy.match(config.prefix)[0]
-          : ".";
+      if (new RegExp(`^${escaped}`).test(budy)) {
+        prefix = customPrefix;
+      } else if (config.prefix?.test?.(budy)) {
+        prefix = budy.match(config.prefix)[0];
+      } else {
+        prefix = ".";
+      }
+      isCmd = budy.length > 0 && budy.startsWith(prefix);
+      command = isCmd ? budy.slice(prefix.length).trim().split(/ +/).shift().toLowerCase() : "";
+      args = isCmd ? budy.slice(prefix.length).trim().split(/ +/).slice(1) : [];
     } else {
+      // Default: use config.prefix regex or "." fallback
       prefix = config.prefix?.test?.(budy) ? budy.match(config.prefix)[0] : ".";
+      isCmd = budy.length > 0 && budy.startsWith(prefix);
+      command = isCmd ? budy.slice(prefix.length).trim().split(/ +/).shift().toLowerCase() : "";
+      args = isCmd ? budy.slice(prefix.length).trim().split(/ +/).slice(1) : [];
     }
 
-    // Robust isCmd — always test against the resolved prefix, never assume
-    const isCmd = budy.length > 0 && prefix.length > 0 && budy.startsWith(prefix);
-    const command = isCmd ? budy.slice(prefix.length).trim().split(/ +/).shift().toLowerCase() : "";
-    const args = isCmd ? budy.slice(prefix.length).trim().split(/ +/).slice(1) : [];
     const text = args.join(" ");
 
     const senderPureNumber = jidToNumber(msgSender);
@@ -8531,11 +8549,20 @@ break;
       case "setprefix2":
       case "prefix2": {
         if (!isOwner) return mzazireply("❌ Owner only!");
-        if (!text) return mzazireply(`Current prefix: *${prefix}*\nUsage: ${prefix}setprefix2 !`);
+        if (!text) return mzazireply(
+          `📌 *Current prefix:* \`${prefix || "none (no prefix)"}\`\n` +
+          `Usage: ${prefix || ""}setprefix2 !\n` +
+          `To remove prefix: ${prefix || ""}setprefix2 none`
+        );
         const sp = loadJSON(`./database/sessions/${botPhoneNum}/settings.json`, {});
+        if (text.toLowerCase() === "none") {
+          sp.customPrefix = "";
+          saveJSON(`./database/sessions/${botPhoneNum}/settings.json`, sp);
+          return mzazireply("✅ Prefix removed.\nCommands can now be used without a prefix.\nExample: menu, ping, alive");
+        }
         sp.customPrefix = text.slice(0,3);
         saveJSON(`./database/sessions/${botPhoneNum}/settings.json`, sp);
-        mzazireply(`✅ Prefix changed to: ${text.slice(0,3)}`);
+        mzazireply(`✅ Prefix changed to: \`${text.slice(0,3)}\``);
         break;
       }
 
