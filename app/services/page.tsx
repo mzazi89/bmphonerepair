@@ -37,4 +37,26 @@ export default function ServicesPage() {
                   <FaCheckCircle className="text-primary mt-1" />
                   <span>Competitive pricing</span>
                 </li>
-                <li className="flex items
+                <li className="flex items-start space-x-3">
+                  <FaCheckCircle className="text-primary mt-1" />
+                  <span>Free diagnostic check</span>
+                </li>
+              </ul>
+            </div>
+            <div className="card">
+              <h3 className="text-xl font-bold mb-4">What We Repair</h3>
+              <ul className="space-y-2 text-gray-700">
+                <li>• Apple iPhone & iPad</li>
+                <li>• Samsung Galaxy & Note</li>
+                <li>• Google Pixel & OnePlus</li>
+                <li>• Dell, HP, Lenovo Laptops</li>
+                <li>• MacBook & iMac</li>
+                <li>• PlayStation, Xbox, Switch</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
