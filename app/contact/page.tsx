@@ -1,17 +1,16 @@
-import { FaPhone, FaWhatsapp, FaMapMarkerAlt, FaClock, FaHome } from 'react-icons/fa'
+import { FaPhone, FaWhatsapp, FaMapMarkerAlt, FaClock, FaHome, FaEnvelope } from 'react-icons/fa'
 import ContactForm from '../components/ContactForm'
 
 export default function ContactPage() {
   return (
-    <div className="bg-dark-800 min-h-screen">
+    <div className="bg-black min-h-screen">
       {/* Hero */}
-      <section className="relative py-24 bg-dark-700 border-b border-dark-500">
+      <section className="relative py-24 bg-dark-800 border-b border-dark-500">
         <div className="container mx-auto text-center">
           <span className="badge">Get in Touch</span>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Contact Us</h1>
           <p className="text-steel-lighter max-w-xl mx-auto text-lg">
-            Ready to get your phone fixed? Reach out via call, WhatsApp, or fill in the form below. 
-            We&apos;ll get back to you promptly.
+            Fill in the form below and we&apos;ll open WhatsApp with your details — Ben will reply fast!
           </p>
         </div>
       </section>
@@ -22,9 +21,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Contact Info */}
             <div className="space-y-5">
-              <div>
-                <h2 className="text-xl font-bold text-white mb-5">Reach Us Directly</h2>
-              </div>
+              <h2 className="text-xl font-bold text-white mb-5">Reach Us Directly</h2>
 
               <div className="card">
                 <div className="flex items-start gap-4">
@@ -33,8 +30,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-white mb-1">Call Us</h3>
-                    <a href="tel:+254700000000" className="text-steel-lighter text-sm hover:text-accent transition-colors">
-                      +254 700 000 000
+                    <a href="tel:+254799554997" className="text-steel-lighter text-sm hover:text-accent transition-colors">
+                      +254 799 554997
                     </a>
                   </div>
                 </div>
@@ -48,12 +45,29 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-white mb-1">WhatsApp</h3>
                     <a
-                      href="https://wa.me/254700000000"
+                      href="https://wa.me/254799554997"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-steel-lighter text-sm hover:text-green-400 transition-colors"
                     >
-                      Chat on WhatsApp
+                      +254 799 554997
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-primary/15 border border-primary/30 rounded-lg flex items-center justify-center shrink-0">
+                    <FaEnvelope className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">Email</h3>
+                    <a
+                      href="mailto:magubenz@gmail.com"
+                      className="text-steel-lighter text-sm hover:text-accent transition-colors break-all"
+                    >
+                      magubenz@gmail.com
                     </a>
                   </div>
                 </div>
@@ -95,7 +109,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-white mb-1">House Visit</h3>
                     <p className="text-steel-lighter text-sm">
-                      We offer house-to-house repair across Limuru and nearby areas. 
+                      We offer house-to-house repair across Limuru and nearby areas.
                       Check the box in the form to request a visit.
                     </p>
                   </div>
@@ -108,8 +122,8 @@ export default function ContactPage() {
               <div className="card">
                 <h2 className="text-2xl font-bold text-white mb-2">Send a Repair Request</h2>
                 <p className="text-steel-lighter text-sm mb-8">
-                  Fill in your details and describe the issue. We&apos;ll contact you with a quote and next steps.
-                  Prices are negotiable and vary with your device.
+                  Fill in your details below. When you submit, WhatsApp opens with your info
+                  pre-filled so Ben can reply to you immediately.
                 </p>
                 <ContactForm />
               </div>
@@ -121,10 +135,10 @@ export default function ContactPage() {
       {/* Map placeholder */}
       <section className="py-10 pb-20">
         <div className="container mx-auto">
-          <div className="bg-dark-600 border border-dark-400 rounded-2xl overflow-hidden h-64 flex items-center justify-center">
+          <div className="bg-dark-700 border border-dark-500 rounded-2xl overflow-hidden h-64 flex items-center justify-center">
             <div className="text-center">
               <FaMapMarkerAlt className="text-accent text-4xl mx-auto mb-3" />
-              <p className="text-white font-semibold">BM Phone Repair & Accessories</p>
+              <p className="text-white font-semibold">BM Phone Repair &amp; Accessories</p>
               <p className="text-steel-lighter text-sm">Limuru Town, Kiambu County, Kenya</p>
               <a
                 href="https://maps.google.com/?q=Limuru+Town,+Kiambu+County,+Kenya"
