@@ -1,0 +1,10 @@
+artifacts/
+scripts/
+bm-phone-repair/
+.agents/
+attached_assets/
+replit.md
+.replit
+.replitignore
+tsconfig.base.json
+case_updated.zip
