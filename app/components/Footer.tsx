@@ -1,34 +1,41 @@
 'use client'
 
 import Link from 'next/link'
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaFacebook, FaWrench, FaClock } from 'react-icons/fa'
+import Image from 'next/image'
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaFacebook, FaClock } from 'react-icons/fa'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-dark-800 border-t border-dark-500">
+    <footer className="bg-black border-t border-dark-500">
       {/* Main footer */}
       <div className="container mx-auto py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="bg-primary w-10 h-10 rounded-lg flex items-center justify-center shadow-lg shadow-primary/30">
-                <FaWrench className="text-white text-lg" />
+              <div className="bg-white rounded-full p-0.5 w-14 h-14 flex items-center justify-center shadow-md shadow-black/40">
+                <Image
+                  src="/images/logo.png"
+                  alt="BM Phone Repair & Accessories"
+                  width={52}
+                  height={52}
+                  className="object-contain rounded-full"
+                />
               </div>
-              <div>
-                <span className="text-xl font-extrabold text-white">BM</span>
-                <span className="text-xl font-light text-accent"> Repair</span>
+              <div className="leading-tight">
+                <div className="text-base font-extrabold text-white">BM Phone Repair</div>
+                <div className="text-xs text-accent font-medium">& Accessories</div>
               </div>
             </div>
             <p className="text-steel-lighter text-sm leading-relaxed mb-6">
-              Your trusted phone repair and accessories shop in Limuru Town. 
+              Your trusted phone repair and accessories shop in Limuru Town.
               Professional, affordable, and reliable.
             </p>
             <div className="flex gap-3">
               <a
-                href="https://wa.me/254700000000"
+                href="https://wa.me/254799554997"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 bg-dark-500 border border-dark-400 rounded-lg flex items-center justify-center text-steel-lighter hover:text-accent hover:border-accent transition-colors"
@@ -90,14 +97,20 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3 text-sm text-steel-lighter">
                 <FaPhone className="text-accent mt-0.5 shrink-0" />
-                <a href="tel:+254700000000" className="hover:text-accent transition-colors">
-                  +254 700 000 000
+                <a href="tel:+254799554997" className="hover:text-accent transition-colors">
+                  +254 799 554997
                 </a>
               </li>
               <li className="flex items-start gap-3 text-sm text-steel-lighter">
                 <FaWhatsapp className="text-accent mt-0.5 shrink-0" />
-                <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
-                  WhatsApp Us
+                <a href="https://wa.me/254799554997" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+                  WhatsApp: +254 799 554997
+                </a>
+              </li>
+              <li className="flex items-start gap-3 text-sm text-steel-lighter">
+                <FaEnvelope className="text-primary mt-0.5 shrink-0" />
+                <a href="mailto:magubenz@gmail.com" className="hover:text-accent transition-colors">
+                  magubenz@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3 text-sm text-steel-lighter">
