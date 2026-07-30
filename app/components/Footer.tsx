@@ -1,87 +1,122 @@
+'use client'
+
 import Link from 'next/link'
-import { FaPhone, FaEnvelope, FaMapMarker, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaFacebook, FaWrench, FaClock } from 'react-icons/fa'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div>
-            <h3 className="text-2xl font-bold mb-4">BM Repair</h3>
-            <p className="text-gray-400 mb-4">
-              Professional phone and electronics repair services with quality guaranteed.
+    <footer className="bg-dark-800 border-t border-dark-500">
+      {/* Main footer */}
+      <div className="container mx-auto py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Brand */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="bg-primary w-10 h-10 rounded-lg flex items-center justify-center shadow-lg shadow-primary/30">
+                <FaWrench className="text-white text-lg" />
+              </div>
+              <div>
+                <span className="text-xl font-extrabold text-white">BM</span>
+                <span className="text-xl font-light text-accent"> Repair</span>
+              </div>
+            </div>
+            <p className="text-steel-lighter text-sm leading-relaxed mb-6">
+              Your trusted phone repair and accessories shop in Limuru Town. 
+              Professional, affordable, and reliable.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <FaFacebook size={24} />
+            <div className="flex gap-3">
+              <a
+                href="https://wa.me/254700000000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 bg-dark-500 border border-dark-400 rounded-lg flex items-center justify-center text-steel-lighter hover:text-accent hover:border-accent transition-colors"
+                aria-label="WhatsApp"
+              >
+                <FaWhatsapp />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <FaTwitter size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <FaInstagram size={24} />
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 bg-dark-500 border border-dark-400 rounded-lg flex items-center justify-center text-steel-lighter hover:text-primary hover:border-primary transition-colors"
+                aria-label="Facebook"
+              >
+                <FaFacebook />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Navigation */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/services" className="text-gray-400 hover:text-white transition-colors">
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
+            <h4 className="text-white font-bold mb-5 uppercase tracking-widest text-xs">Quick Links</h4>
+            <ul className="space-y-3">
+              {[
+                { href: '/', label: 'Home' },
+                { href: '/services', label: 'Services' },
+                { href: '/about', label: 'About Us' },
+                { href: '/contact', label: 'Contact' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-steel-lighter hover:text-accent transition-colors text-sm">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Our Services</h4>
-            <ul className="space-y-2">
-              <li className="text-gray-400">iPhone Repair</li>
-              <li className="text-gray-400">Samsung Repair</li>
-              <li className="text-gray-400">Laptop Repair</li>
-              <li className="text-gray-400">Tablet Repair</li>
+            <h4 className="text-white font-bold mb-5 uppercase tracking-widest text-xs">Services</h4>
+            <ul className="space-y-3 text-steel-lighter text-sm">
+              <li>Screen Replacement</li>
+              <li>Battery Replacement</li>
+              <li>Charging Port Repair</li>
+              <li>Software / Flashing</li>
+              <li>Accessories</li>
+              <li>House-to-House Repair</li>
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start space-x-3 text-gray-400">
-                <FaPhone className="mt-1 text-primary" />
-                <span>{process.env.NEXT_PUBLIC_PHONE}</span>
+            <h4 className="text-white font-bold mb-5 uppercase tracking-widest text-xs">Contact</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-sm text-steel-lighter">
+                <FaMapMarkerAlt className="text-accent mt-0.5 shrink-0" />
+                <span>Limuru Town, Kiambu County, Kenya</span>
               </li>
-              <li className="flex items-start space-x-3 text-gray-400">
-                <FaEnvelope className="mt-1 text-primary" />
-                <span>{process.env.NEXT_PUBLIC_EMAIL}</span>
+              <li className="flex items-start gap-3 text-sm text-steel-lighter">
+                <FaPhone className="text-accent mt-0.5 shrink-0" />
+                <a href="tel:+254700000000" className="hover:text-accent transition-colors">
+                  +254 700 000 000
+                </a>
               </li>
-              <li className="flex items-start space-x-3 text-gray-400">
-                <FaMapMarker className="mt-1 text-primary" />
-                <span>{process.env.NEXT_PUBLIC_ADDRESS}</span>
+              <li className="flex items-start gap-3 text-sm text-steel-lighter">
+                <FaWhatsapp className="text-accent mt-0.5 shrink-0" />
+                <a href="https://wa.me/254700000000" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">
+                  WhatsApp Us
+                </a>
+              </li>
+              <li className="flex items-start gap-3 text-sm text-steel-lighter">
+                <FaClock className="text-primary mt-0.5 shrink-0" />
+                <div>
+                  <div>Mon–Sat: 8AM – 7PM</div>
+                  <div>Sun: 10AM – 4PM</div>
+                </div>
               </li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>© {currentYear} BM Phone & Electronics Repair. All rights reserved.</p>
+      {/* Bottom bar */}
+      <div className="border-t border-dark-600 py-5">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-steel text-sm">
+          <p>© {currentYear} BM Phone Repair &amp; Accessories. All rights reserved.</p>
+          <p className="text-steel-lighter">Limuru Town, Kenya</p>
         </div>
       </div>
     </footer>
