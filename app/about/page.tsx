@@ -2,7 +2,7 @@ import { FaUsers, FaTools, FaShieldAlt, FaClock, FaHome, FaMapMarkerAlt, FaCheck
 
 export default function AboutPage() {
   return (
-    <div className="bg-dark-800 min-h-screen">
+    <div className="bg-black min-h-screen">
       {/* Hero */}
       <section
         className="relative py-28 bg-cover bg-center"
@@ -10,7 +10,7 @@ export default function AboutPage() {
           backgroundImage: "url('https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=1920&q=80')",
         }}
       >
-        <div className="absolute inset-0 bg-dark-800/90" />
+        <div className="absolute inset-0 bg-black/95" />
         <div className="container mx-auto relative z-10 text-center">
           <span className="badge">Our Story</span>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">About BM Phone Repair</h1>
@@ -28,18 +28,18 @@ export default function AboutPage() {
               <span className="badge">Who We Are</span>
               <h2 className="text-3xl font-bold text-white mb-6">Rooted in Limuru Town</h2>
               <p className="text-steel-lighter mb-5 leading-relaxed">
-                BM Phone Repair &amp; Accessories is your local phone repair shop based right here in 
-                <strong className="text-white"> Limuru Town, Kiambu County</strong>. We started with a 
-                simple mission: to provide honest, high-quality phone repairs that people in our community 
+                BM Phone Repair &amp; Accessories is your local phone repair shop based right here in
+                <strong className="text-white"> Limuru Town, Kiambu County</strong>. We started with a
+                simple mission: to provide honest, high-quality phone repairs that people in our community
                 can actually afford.
               </p>
               <p className="text-steel-lighter mb-5 leading-relaxed">
-                We repair all major smartphone brands — iPhone, Samsung, Tecno, Infinix, Xiaomi, 
-                Huawei, Nokia, and more. Whether it&apos;s a cracked screen, a faulty battery, or a 
+                We repair all major smartphone brands — iPhone, Samsung, Tecno, Infinix, Xiaomi,
+                Huawei, Nokia, and more. Whether it&apos;s a cracked screen, a faulty battery, or a
                 charging port issue, our experienced technicians handle it all.
               </p>
               <p className="text-steel-lighter leading-relaxed">
-                Our prices are <strong className="text-accent">negotiable and vary with the type of device</strong>. 
+                Our prices are <strong className="text-accent">negotiable and vary with the type of device</strong>.
                 We believe in transparency — you&apos;ll always know the cost before we start any repair.
               </p>
             </div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
       </section>
 
       {/* House to House Service */}
-      <section className="py-20 bg-dark-700">
+      <section className="py-20 bg-dark-800">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -82,8 +82,8 @@ export default function AboutPage() {
                 <FaHome className="text-accent text-3xl mb-4" />
                 <h3 className="text-white font-bold text-lg mb-3">We Come to Your Location</h3>
                 <p className="text-steel-lighter text-sm leading-relaxed">
-                  If you are unable to come to our shop — whether due to a busy schedule, distance, 
-                  or any other reason — simply request a house visit and our technician will come 
+                  If you are unable to come to our shop — whether due to a busy schedule, distance,
+                  or any other reason — simply request a house visit and our technician will come
                   to your home or workplace.
                 </p>
               </div>
@@ -92,9 +92,9 @@ export default function AboutPage() {
                 <FaMapMarkerAlt className="text-primary text-3xl mb-4" />
                 <h3 className="text-white font-bold text-lg mb-3">Coverage Area</h3>
                 <p className="text-steel-lighter text-sm leading-relaxed">
-                  We serve Limuru Town and surrounding areas including Tigoni, Uplands, 
-                  Kinoo, and nearby estates. Call or WhatsApp us to confirm if your 
-                  location is within our coverage.
+                  We serve Limuru Town and surrounding areas including Tigoni, Uplands,
+                  Kinoo, and nearby estates. Call or WhatsApp us on <strong className="text-accent">+254 799 554997</strong> to
+                  confirm if your location is within our coverage.
                 </p>
               </div>
             </div>
@@ -103,12 +103,12 @@ export default function AboutPage() {
       </section>
 
       {/* Pricing */}
-      <section className="py-20 bg-dark-800">
+      <section className="py-20 bg-black">
         <div className="container mx-auto">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
               <span className="badge">Transparent Pricing</span>
-              <h2 className="text-3xl font-bold text-white mb-4">Fair & Negotiable Prices</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">Fair &amp; Negotiable Prices</h2>
               <p className="text-steel-lighter">
                 We believe everyone deserves quality phone repair at a fair price.
               </p>
