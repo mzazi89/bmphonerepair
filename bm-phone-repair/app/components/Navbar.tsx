@@ -18,6 +18,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/services', label: 'Services' },
+    { href: '/accessories', label: 'Accessories' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
   ]
@@ -43,15 +44,15 @@ export default function Navbar() {
 
       <div className="container mx-auto">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Logo — no background needed since image has transparent bg */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-white rounded-full p-0.5 w-12 h-12 flex items-center justify-center shadow-md shadow-black/40">
+            <div className="w-12 h-12 flex items-center justify-center">
               <Image
                 src="/images/logo.png"
                 alt="BM Phone Repair & Accessories"
-                width={44}
-                height={44}
-                className="object-contain rounded-full"
+                width={48}
+                height={48}
+                className="object-contain"
               />
             </div>
             <div className="leading-tight hidden sm:block">
@@ -61,7 +62,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
