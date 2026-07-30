@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { FaBars, FaTimes, FaPhone, FaWrench } from 'react-icons/fa'
+import Image from 'next/image'
+import { FaBars, FaTimes, FaPhone } from 'react-icons/fa'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,8 +25,8 @@ export default function Navbar() {
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-300 ${
       scrolled
-        ? 'bg-dark-800/95 backdrop-blur-md shadow-2xl shadow-black/50 border-b border-dark-500'
-        : 'bg-dark-800 border-b border-dark-600'
+        ? 'bg-black/97 backdrop-blur-md shadow-2xl shadow-black/70 border-b border-dark-500'
+        : 'bg-black border-b border-dark-600'
     }`}>
       {/* Top bar */}
       <div className="bg-primary/10 border-b border-primary/20 py-1.5 hidden md:block">
@@ -33,9 +34,9 @@ export default function Navbar() {
           <span className="text-steel-lighter">
             📍 Limuru Town, Kiambu County, Kenya
           </span>
-          <a href="tel:+254700000000" className="flex items-center gap-2 text-accent hover:text-accent-light transition-colors">
+          <a href="tel:+254799554997" className="flex items-center gap-2 text-accent hover:text-accent-light transition-colors">
             <FaPhone className="text-xs" />
-            <span className="font-medium">Call / WhatsApp Us</span>
+            <span className="font-medium">+254 799 554997</span>
           </a>
         </div>
       </div>
@@ -43,14 +44,19 @@ export default function Navbar() {
       <div className="container mx-auto">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="bg-primary w-10 h-10 rounded-lg flex items-center justify-center shadow-lg shadow-primary/30 group-hover:shadow-primary/50 transition-shadow">
-              <FaWrench className="text-white text-lg" />
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="bg-white rounded-full p-0.5 w-12 h-12 flex items-center justify-center shadow-md shadow-black/40">
+              <Image
+                src="/images/logo.png"
+                alt="BM Phone Repair & Accessories"
+                width={44}
+                height={44}
+                className="object-contain rounded-full"
+              />
             </div>
-            <div className="leading-tight">
-              <span className="text-xl font-extrabold text-white">BM</span>
-              <span className="text-xl font-light text-accent"> Repair</span>
-              <div className="text-xs text-steel-lighter font-medium tracking-wide">Phone & Accessories</div>
+            <div className="leading-tight hidden sm:block">
+              <div className="text-base font-extrabold text-white leading-none">BM Phone Repair</div>
+              <div className="text-xs text-accent font-medium tracking-wide">& Accessories</div>
             </div>
           </Link>
 
