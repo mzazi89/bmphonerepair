@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FaBolt, FaCheckCircle, FaArrowLeft } from 'react-icons/fa'
 
@@ -52,16 +53,16 @@ const products = [
   },
 ]
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Chargers & Adaptors | BM Phone Repair & Accessories',
   description: 'Buy phone chargers in Limuru — fast chargers, wireless pads, car chargers and travel adaptors at affordable prices.',
 }
 
 export default function ChargersPage() {
   return (
-    <div className="min-h-screen bg-dark-900 text-white">
+    <div className="min-h-screen bg-dark-800 text-white">
 
-      <section className="py-14 bg-gradient-to-br from-yellow-900/20 via-dark-900 to-dark-900 border-b border-dark-600">
+      <section className="py-14 bg-gradient-to-br from-yellow-900/20 via-dark-800 to-dark-800 border-b border-dark-600">
         <div className="container mx-auto px-4">
           <Link href="/accessories" className="inline-flex items-center gap-2 text-steel-lighter hover:text-accent text-sm mb-6 transition-colors">
             <FaArrowLeft className="text-xs" /> Back to Accessories
@@ -81,7 +82,7 @@ export default function ChargersPage() {
       <section className="py-14 container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
-            <div key={product.name} className="bg-dark-800 border border-dark-600 rounded-2xl p-6 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300">
+            <div key={product.name} className="bg-dark-700 border border-dark-500 rounded-2xl p-6 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h2 className="text-lg font-bold text-white">{product.name}</h2>
@@ -110,7 +111,7 @@ export default function ChargersPage() {
         </div>
       </section>
 
-      <section className="py-10 bg-dark-800 border-t border-dark-600 text-center">
+      <section className="py-10 bg-dark-700 border-t border-dark-600 text-center">
         <p className="text-steel-lighter mb-4">Looking for a specific charger brand or wattage? We can source it for you.</p>
         <Link href="/contact" className="btn-accent py-2.5 px-8">Contact Us</Link>
       </section>

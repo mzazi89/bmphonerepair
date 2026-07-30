@@ -1,7 +1,8 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
   FaHeadphones, FaBolt, FaVolumeUp, FaMobileAlt,
-  FaShieldAlt, FaBatteryFull, FaUsb, FaMemory
+  FaShieldAlt, FaBatteryFull, FaUsb, FaMicrochip
 } from 'react-icons/fa'
 
 const categories = [
@@ -63,7 +64,7 @@ const categories = [
   },
   {
     href: '/accessories/memory',
-    icon: FaMemory,
+    icon: FaMicrochip,
     name: 'Memory Cards & Storage',
     description: 'MicroSD cards, flash drives, and storage accessories for phones and cameras.',
     color: 'from-pink-600 to-pink-800',
@@ -71,17 +72,17 @@ const categories = [
   },
 ]
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Accessories | BM Phone Repair & Accessories',
   description: 'Shop phone accessories in Limuru — earphones, chargers, woofers, cases, screen protectors, power banks, and more.',
 }
 
 export default function AccessoriesPage() {
   return (
-    <div className="min-h-screen bg-dark-900 text-white">
+    <div className="min-h-screen bg-dark-800 text-white">
 
       {/* Hero */}
-      <section className="relative py-20 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900 border-b border-dark-600">
+      <section className="relative py-20 bg-gradient-to-br from-dark-800 via-dark-700 to-dark-800 border-b border-dark-600">
         <div className="container mx-auto text-center px-4">
           <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent text-sm font-medium mb-4">
             In-Store & On Order
@@ -91,7 +92,7 @@ export default function AccessoriesPage() {
           </h1>
           <p className="text-steel-lighter max-w-xl mx-auto text-lg">
             Quality accessories for every device and budget — available at our Limuru Town shop.
-            Can't visit? We deliver locally.
+            Can&apos;t visit? We deliver locally.
           </p>
         </div>
       </section>
@@ -105,7 +106,7 @@ export default function AccessoriesPage() {
               <Link
                 key={cat.href}
                 href={cat.href}
-                className="group bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden hover:border-accent/50 hover:shadow-xl hover:shadow-accent/10 transition-all duration-300"
+                className="group bg-dark-700 border border-dark-500 rounded-2xl overflow-hidden hover:border-accent/50 hover:shadow-xl hover:shadow-accent/10 transition-all duration-300"
               >
                 {/* Colour band */}
                 <div className={`h-2 w-full bg-gradient-to-r ${cat.color}`} />
@@ -138,14 +139,11 @@ export default function AccessoriesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-12 bg-dark-800 border-t border-dark-600">
+      <section className="py-12 bg-dark-700 border-t border-dark-600">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-bold text-white mb-2">Can't find what you need?</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">Can&apos;t find what you need?</h3>
           <p className="text-steel-lighter mb-6">Contact us — we can order specific accessories for you within 1–2 days.</p>
-          <Link
-            href="/contact"
-            className="btn-accent py-3 px-8 text-base"
-          >
+          <Link href="/contact" className="btn-accent py-3 px-8 text-base">
             Contact Us
           </Link>
         </div>

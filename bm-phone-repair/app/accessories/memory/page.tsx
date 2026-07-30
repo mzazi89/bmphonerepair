@@ -1,5 +1,6 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { FaMemory, FaCheckCircle, FaArrowLeft } from 'react-icons/fa'
+import { FaMicrochip, FaCheckCircle, FaArrowLeft } from 'react-icons/fa'
 
 const products = [
   {
@@ -52,23 +53,23 @@ const products = [
   },
 ]
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Memory Cards & Storage | BM Phone Repair & Accessories',
   description: 'Buy memory cards and storage accessories in Limuru — microSD, flash drives, OTG drives and card readers.',
 }
 
 export default function MemoryPage() {
   return (
-    <div className="min-h-screen bg-dark-900 text-white">
+    <div className="min-h-screen bg-dark-800 text-white">
 
-      <section className="py-14 bg-gradient-to-br from-pink-900/20 via-dark-900 to-dark-900 border-b border-dark-600">
+      <section className="py-14 bg-gradient-to-br from-pink-900/20 via-dark-800 to-dark-800 border-b border-dark-600">
         <div className="container mx-auto px-4">
           <Link href="/accessories" className="inline-flex items-center gap-2 text-steel-lighter hover:text-accent text-sm mb-6 transition-colors">
             <FaArrowLeft className="text-xs" /> Back to Accessories
           </Link>
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl flex items-center justify-center">
-              <FaMemory className="text-white text-2xl" />
+              <FaMicrochip className="text-white text-2xl" />
             </div>
             <div>
               <h1 className="text-3xl md:text-4xl font-extrabold text-white">Memory Cards & Storage</h1>
@@ -81,7 +82,7 @@ export default function MemoryPage() {
       <section className="py-14 container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
-            <div key={product.name} className="bg-dark-800 border border-dark-600 rounded-2xl p-6 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300">
+            <div key={product.name} className="bg-dark-700 border border-dark-500 rounded-2xl p-6 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h2 className="text-lg font-bold text-white">{product.name}</h2>
@@ -110,7 +111,7 @@ export default function MemoryPage() {
         </div>
       </section>
 
-      <section className="py-10 bg-dark-800 border-t border-dark-600 text-center">
+      <section className="py-10 bg-dark-700 border-t border-dark-600 text-center">
         <p className="text-steel-lighter mb-4">Need a specific capacity or brand? We can order it for you within 1–2 days.</p>
         <Link href="/contact" className="btn-accent py-2.5 px-8">Contact Us</Link>
       </section>

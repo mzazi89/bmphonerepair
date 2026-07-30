@@ -1,5 +1,6 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { FaHeadphones, FaBluetooth, FaPlug, FaCheckCircle, FaArrowLeft } from 'react-icons/fa'
+import { FaHeadphones, FaCheckCircle, FaArrowLeft } from 'react-icons/fa'
 
 const products = [
   {
@@ -52,17 +53,17 @@ const products = [
   },
 ]
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Earphones & Headphones | BM Phone Repair & Accessories',
   description: 'Shop earphones and headphones in Limuru — wired, wireless, Bluetooth, and gaming headsets at affordable prices.',
 }
 
 export default function EarphonesPage() {
   return (
-    <div className="min-h-screen bg-dark-900 text-white">
+    <div className="min-h-screen bg-dark-800 text-white">
 
       {/* Breadcrumb & Hero */}
-      <section className="py-14 bg-gradient-to-br from-blue-900/30 via-dark-900 to-dark-900 border-b border-dark-600">
+      <section className="py-14 bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 border-b border-dark-600">
         <div className="container mx-auto px-4">
           <Link href="/accessories" className="inline-flex items-center gap-2 text-steel-lighter hover:text-accent text-sm mb-6 transition-colors">
             <FaArrowLeft className="text-xs" /> Back to Accessories
@@ -85,7 +86,7 @@ export default function EarphonesPage() {
           {products.map((product) => (
             <div
               key={product.name}
-              className="bg-dark-800 border border-dark-600 rounded-2xl p-6 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300"
+              className="bg-dark-700 border border-dark-500 rounded-2xl p-6 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
@@ -118,8 +119,7 @@ export default function EarphonesPage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-10 bg-dark-800 border-t border-dark-600 text-center">
+      <section className="py-10 bg-dark-700 border-t border-dark-600 text-center">
         <p className="text-steel-lighter mb-4">Need a specific model? We can order it for you.</p>
         <Link href="/contact" className="btn-accent py-2.5 px-8">Contact Us</Link>
       </section>

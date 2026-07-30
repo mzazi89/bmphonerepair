@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FaMobileAlt, FaCheckCircle, FaArrowLeft } from 'react-icons/fa'
 
@@ -5,7 +6,7 @@ const products = [
   {
     name: 'Clear Silicone Case',
     type: 'Back Cover · Slim',
-    description: 'Transparent silicone case that shows off your phone\'s original look while protecting against scratches and minor drops.',
+    description: "Transparent silicone case that shows off your phone's original look while protecting against scratches and minor drops.",
     features: ['Crystal clear', 'Anti-yellowing', 'Raised edges', 'All major brands'],
     badge: 'Popular',
     badgeColor: 'bg-blue-500',
@@ -52,16 +53,16 @@ const products = [
   },
 ]
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Phone Cases & Covers | BM Phone Repair & Accessories',
   description: 'Shop phone cases and covers in Limuru — clear, rugged, leather flip, wallet, and designer cases for all brands.',
 }
 
 export default function CasesPage() {
   return (
-    <div className="min-h-screen bg-dark-900 text-white">
+    <div className="min-h-screen bg-dark-800 text-white">
 
-      <section className="py-14 bg-gradient-to-br from-green-900/20 via-dark-900 to-dark-900 border-b border-dark-600">
+      <section className="py-14 bg-gradient-to-br from-green-900/20 via-dark-800 to-dark-800 border-b border-dark-600">
         <div className="container mx-auto px-4">
           <Link href="/accessories" className="inline-flex items-center gap-2 text-steel-lighter hover:text-accent text-sm mb-6 transition-colors">
             <FaArrowLeft className="text-xs" /> Back to Accessories
@@ -81,7 +82,7 @@ export default function CasesPage() {
       <section className="py-14 container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
-            <div key={product.name} className="bg-dark-800 border border-dark-600 rounded-2xl p-6 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300">
+            <div key={product.name} className="bg-dark-700 border border-dark-500 rounded-2xl p-6 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h2 className="text-lg font-bold text-white">{product.name}</h2>
@@ -110,8 +111,8 @@ export default function CasesPage() {
         </div>
       </section>
 
-      <section className="py-10 bg-dark-800 border-t border-dark-600 text-center">
-        <p className="text-steel-lighter mb-4">Don't see your phone model? Contact us — we stock cases for most brands.</p>
+      <section className="py-10 bg-dark-700 border-t border-dark-600 text-center">
+        <p className="text-steel-lighter mb-4">Don&apos;t see your phone model? Contact us — we stock cases for most brands.</p>
         <Link href="/contact" className="btn-accent py-2.5 px-8">Contact Us</Link>
       </section>
     </div>
