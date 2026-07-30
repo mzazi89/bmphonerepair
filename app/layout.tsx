@@ -4,29 +4,21 @@ import './globals.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'BM Phone & Electronics Repair | Professional Device Repair',
-  description: 'Expert phone, tablet, laptop, and gaming console repair services. Fast, reliable, and affordable repairs in your area.',
-  keywords: 'phone repair, electronics repair, iPhone repair, Samsung repair, laptop repair, tablet repair',
-  authors: [{ name: 'BM Repair' }],
+  title: 'BM Phone Repair & Accessories | Limuru Town',
+  description: 'Professional phone repair and accessories shop in Limuru Town. We fix all smartphone brands — screen replacement, battery, charging port, and more. House-to-house repair available on request.',
+  keywords: 'phone repair Limuru, phone repair Kenya, screen replacement Limuru, BM phone repair, smartphone repair, accessories Limuru',
+  authors: [{ name: 'BM Phone Repair & Accessories' }],
   openGraph: {
-    title: 'BM Phone & Electronics Repair',
-    description: 'Professional device repair services',
-    url: 'https://bm-repair.vercel.app',
-    siteName: 'BM Phone & Electronics Repair',
-    images: [
-      {
-        url: '/images/og-image.jpg',
-        width: 1200,
-        height: 630,
-      },
-    ],
-    locale: 'en_US',
+    title: 'BM Phone Repair & Accessories | Limuru Town',
+    description: 'Professional phone repair services in Limuru Town. House-to-house repair on request. Prices negotiable.',
+    siteName: 'BM Phone Repair & Accessories',
+    locale: 'en_KE',
     type: 'website',
   },
 }
@@ -40,7 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen bg-dark-800">{children}</main>
         <Footer />
       </body>
     </html>
