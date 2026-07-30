@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { FaWhatsapp } from 'react-icons/fa'
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -16,34 +17,41 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
+const WHATSAPP_NUMBER = '254799554997'
+const BASE_MESSAGE = 'hey Ben I was checking on your website and I have a question'
+
 export default function ContactForm() {
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [submitted, setSubmitted] = useState(false)
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   })
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      if (response.ok) {
-        setSubmitStatus('success')
-        reset()
-      } else {
-        setSubmitStatus('error')
-      }
-    } catch {
-      setSubmitStatus('error')
+  const onSubmit = (data: FormData) => {
+    // Build WhatsApp message
+    const lines = [
+      BASE_MESSAGE,
+      '',
+      `Name: ${data.name}`,
+      `Phone: ${data.phone}`,
+      `Device: ${data.device}`,
+      `Issue: ${data.issue}`,
+    ]
+    if (data.houseVisit) {
+      lines.push('House visit requested: Yes')
     }
+    const message = encodeURIComponent(lines.join('\n'))
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`
+
+    setSubmitted(true)
+    // Small delay so user sees the success state, then open WhatsApp
+    setTimeout(() => {
+      window.open(waUrl, '_blank')
+    }, 400)
   }
 
   const inputClass =
@@ -85,7 +93,7 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-steel-lighter mb-1.5">Device *</label>
+        <label className="block text-sm font-medium text-steel-lighter mb-1.5">Your Device *</label>
         <input
           {...register('device')}
           className={inputClass}
@@ -119,25 +127,28 @@ export default function ContactForm() {
         </label>
       </div>
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="btn-accent w-full py-4 text-base disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isSubmitting ? 'Sending...' : 'Send Repair Request'}
-      </button>
-
-      {submitStatus === 'success' && (
-        <div className="bg-green-900/30 border border-green-600/40 text-green-400 p-4 rounded-lg text-sm">
-          Your request has been sent! We will contact you shortly via phone or WhatsApp.
+      {submitted ? (
+        <div className="bg-green-900/30 border border-green-600/40 text-green-400 p-4 rounded-lg text-sm flex items-center gap-3">
+          <FaWhatsapp className="text-2xl shrink-0" />
+          <div>
+            <div className="font-semibold text-green-300 mb-0.5">Opening WhatsApp...</div>
+            <div>Your message is being sent to Ben on WhatsApp (+254 799 554997).</div>
+          </div>
         </div>
+      ) : (
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="btn-accent w-full py-4 text-base disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+        >
+          <FaWhatsapp className="text-xl" />
+          Send via WhatsApp
+        </button>
       )}
 
-      {submitStatus === 'error' && (
-        <div className="bg-red-900/30 border border-red-600/40 text-red-400 p-4 rounded-lg text-sm">
-          Failed to send. Please try again or contact us directly via WhatsApp.
-        </div>
-      )}
+      <p className="text-xs text-steel text-center">
+        Submitting this form opens WhatsApp with your details pre-filled to +254 799 554997
+      </p>
     </form>
   )
 }
