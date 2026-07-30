@@ -6,9 +6,10 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-dark-800 text-gray-100;
+    font-family: 'Inter', sans-serif;
   }
 }
 
@@ -16,21 +17,45 @@
   .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-  
+
   .btn-primary {
-    @apply bg-primary text-white px-6 py-3 rounded-lg font-semibold 
-           hover:bg-primary-dark transition-all duration-300 
-           transform hover:scale-105 shadow-lg hover:shadow-xl;
+    @apply bg-primary text-white px-6 py-3 rounded-lg font-semibold
+           hover:bg-primary-dark transition-all duration-300
+           transform hover:scale-105 shadow-lg hover:shadow-primary/30;
   }
-  
-  .btn-secondary {
-    @apply border-2 border-primary text-primary px-6 py-3 rounded-lg 
-           font-semibold hover:bg-primary hover:text-white 
+
+  .btn-accent {
+    @apply bg-accent text-dark font-bold px-6 py-3 rounded-lg
+           hover:bg-accent-dark transition-all duration-300
+           transform hover:scale-105 shadow-lg hover:shadow-accent/30;
+  }
+
+  .btn-outline {
+    @apply border-2 border-accent text-accent px-6 py-3 rounded-lg
+           font-semibold hover:bg-accent hover:text-dark
            transition-all duration-300;
   }
-  
+
   .card {
-    @apply bg-white rounded-xl shadow-md hover:shadow-xl 
+    @apply bg-dark-600 border border-dark-400 rounded-xl shadow-lg
+           hover:shadow-primary/20 hover:border-primary/40
            transition-all duration-300 p-6;
+  }
+
+  .card-dark {
+    @apply bg-dark-700 border border-dark-500 rounded-xl p-6;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-white mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-steel-lighter max-w-2xl mx-auto text-lg;
+  }
+
+  .badge {
+    @apply inline-block bg-accent/20 text-accent text-xs font-bold
+           uppercase tracking-widest px-3 py-1 rounded-full mb-4;
   }
 }
