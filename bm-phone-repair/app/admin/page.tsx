@@ -67,8 +67,14 @@ export default function AdminDashboard() {
   const fileRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    loadItems()
-  }, [])
+    // Verify admin session before loading
+    fetch('/api/admin/check')
+      .then((r) => {
+        if (!r.ok) router.replace('/admin/login')
+        else loadItems()
+      })
+      .catch(() => router.replace('/admin/login'))
+  }, [router])
 
   async function loadItems() {
     setLoading(true)
